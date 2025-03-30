@@ -13,6 +13,11 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
+    "paths": {
+      "optimus-pipes": [
+        "./dist/optimus-pipes"
+      ]
+    },
     "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
