@@ -2,6 +2,11 @@
 
 `ngx-optimus` is an Angular library dedicated to providing a collection of useful custom pipes to transform data in your templates. This library aims to simplify common data formatting tasks and keep your component logic cleaner.
 
+## Demo
+
+You can see the pipes in action here: [OptimusPipes Demo](https://bilal-abubakari.github.io/ngx-optimus/)
+
+
 ## Purpose
 
 The main goal of `ngx-optimus` is to offer a set of reusable and well-tested pipes that can be easily integrated into any Angular project, helping developers to format data directly in their HTML templates with ease.
@@ -15,32 +20,65 @@ npm install ngx-optimus
 ```
 
 ## Usage
-1. **Import `NgxOptimusPipesModule`**: You need to import the `NgxOptimusPipesModule` into the Angular module where you want to use the pipes (e.g., your `AppModule` or a shared module).
+You can use `optimus-pipes` pipes in both standalone components and components that are part of an NgModule.
+
+**1. For Standalone Components:**
+If you are using standalone components, you can import the specific pipes you need directly into your component's `imports` array.
+Assuming `SentenceCasePipe` is the pipe for the transformation and is exported from `optimus-pipes`: `sentenceCase`
+
+
+    // src/app/your-standalone-component/your-standalone-component.component.ts
+    import { Component } from '@angular/core';
+    import { SentenceCasePipe } from 'optimus-pipes'; // Ensure this path and pipe name are correct
+
+    @Component({
+    selector: 'app-your-standalone-component',
+    standalone: true,
+    imports: [
+    SentenceCasePipe // Add the individual pipe here
+    // Other imports like CommonModule if needed
+    ],
+    template: `
+        <!-- Assuming 'myString' is a property in your component -->
+        <!-- e.g., myString = "helloWorldExample"; or myString = "hello_world_example"; -->
+        <p>{{ myString | sentenceCase }}</p>
+        <!-- Output: Hello world example -->
+      `
+    })
+    export class YourStandaloneComponent {
+    myString: string = "helloWorldExample";
+    }
+
+
+**2. For Components within NgModules:**
+If your component is part of an Angular module (e.g., `AppModule` or a feature module), you can import any pipe in the module. (Assuming the module name follows the convention `[LibraryName]Module`).
 
 
     // src/app/app.module.ts (or your feature module)
     import { NgModule } from '@angular/core';
     import { BrowserModule } from '@angular/platform-browser';
-    import { NgxOptimusPipesModule } from 'ngx-optimus'; // Ensure this path is correct based on your library's published name
-
+    import { SentenceCasePipe } from 'optimus-pipes'; // Import pipe from optimus-pipes
+    
     import { AppComponent } from './app.component';
-
+    
     @NgModule({
-      declarations: [
-        AppComponent
-      ],
-      imports: [
-        BrowserModule,
-        NgxOptimusPipesModule // Add NgxOptimusPipesModule here
-      ],
-      providers: [],
-      bootstrap: [AppComponent]
+    declarations: [
+    AppComponent
+    // Your other components declared in this module
+    ],
+    imports: [
+    BrowserModule,
+    SentenceCasePipe // Add Any pipe here
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
     })
     export class AppModule { }
 
-2. **Use the pipes in your templates**: Once imported, you can use the pipes in your component templates.
-   For example, to use the pipe: `sentenceCase`
 
+**Using the pipes in your templates:**
+Once imported (either individually for standalone components or via the module for NgModules-based components), you can use the pipes in your component templates.
+For example, to use the pipe: `sentenceCase`
 
     <!-- Assuming 'myString' is a property in your component -->
     <!-- e.g., myString = "helloWorldExample"; or myString = "hello_world_example"; -->
@@ -49,7 +87,7 @@ npm install ngx-optimus
 
 
 ## Available Pipes
-Here's a list of the pipes currently available in `ngx-optimus`:
+Here's a list of the pipes currently available in `optimus-pipes`:
 
 | Pipe           | Description                                                                                             | Usage Example                         |
 |----------------|---------------------------------------------------------------------------------------------------------|---------------------------------------|

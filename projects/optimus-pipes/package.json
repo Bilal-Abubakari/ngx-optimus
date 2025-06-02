@@ -1,6 +1,8 @@
 {
   "name": "optimus-pipes",
   "version": "0.0.5",
+  "homepage": "https://bilal-abubakari.github.io/ngx-optimus/",
+  "repository": "https://github.com/Bilal-Abubakari/ngx-optimus",
   "peerDependencies": {
     "@angular/common": "^20.0.0",
     "@angular/core": "^20.0.0"
