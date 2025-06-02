@@ -1,17 +1,17 @@
 # NgxOptimus
 
-`ngx-optimus` is an Angular library dedicated to providing a collection of useful custom pipes to transform data in your templates. This library aims to simplify common data formatting tasks and keep your component logic cleaner.
+`optimus-pipes` is an Angular library dedicated to providing a collection of useful custom pipes to transform data in your templates. This library aims to simplify common data formatting tasks and keep your component logic cleaner.
 
 ## Purpose
 
-The main goal of `ngx-optimus` is to offer a set of reusable and well-tested pipes that can be easily integrated into any Angular project, helping developers to format data directly in their HTML templates with ease.
+The main goal of `optimus-pipes` is to offer a set of reusable and well-tested pipes that can be easily integrated into any Angular project, helping developers to format data directly in their HTML templates with ease.
 
 ## Installation
 
-To get started with `ngx-optimus`, install it from npm:
+To get started with `optimus-pipes`, install it from npm:
 
 ```bash
-npm install ngx-optimus
+npm install optimus-pipes
 ```
 
 ## Usage
