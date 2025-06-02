@@ -1,1 +1,71 @@
-<p>{{'peopleClass' | sentenceCase }}</p>
+<div class="demo-container">
+  <h1>Optimus Pipes Interactive Demo</h1>
+
+  <div class="interactive-tester">
+    <h2>Test a Pipe</h2>
+    <div class="form-group">
+      <label for="pipeInput">Input String:</label>
+      <input type="text" id="pipeInput" class="form-control" [(ngModel)]="userInput" [placeholder]="currentInitialInput">
+    </div>
+
+    <div class="form-group">
+      <label for="pipeSelector">Select Pipe:</label>
+      <select id="pipeSelector" class="form-control" [(ngModel)]="selectedPipeName">
+        @for (pipe of availablePipes; track pipe.name) {
+          <option [value]="pipe.name">
+            {{ pipe.displayName }}
+          </option>
+        }
+      </select>
+    </div>
+
+    @if (selectedPipeName) {
+      <div class="output-section">
+        <h3>Output:</h3>
+        <div class="output-box">
+          @switch (selectedPipeName) {
+            @case ('sentenceCase') {
+              <span>{{ userInput | sentenceCase }}</span>
+            }
+            @default {
+              <span>Pipe not found or output not configured.</span>
+            }
+          }
+        </div>
+        @if (selectedPipeExists()) {
+          <div class="pipe-description">
+            <h4>About {{ currentSelectPipe.displayName }}:</h4>
+            <p>{{ currentSelectPipe.description }}</p>
+            <p><strong>Example Usage:</strong> <code>'someText' | {{ currentSelectPipe.name }}</code></p>
+  </div>
+  }
+</div>
+}
+</div>
+
+<hr>
+
+<h2>Available Pipes Overview</h2>
+<div class="pipes-overview">
+  @for (pipe of availablePipes; track pipe.name) {
+    <div class="pipe-card">
+      <h3>{{ pipe.displayName }}</h3>
+      <p>{{ pipe.description }}</p>
+      <p><strong>Try it out:</strong> "{{ pipe.initialInput }}" | {{ pipe.name }}</p>
+      <p class="example-output">
+        <strong>Example Output:</strong>
+        @switch (pipe.name) {
+          @case ('sentenceCase') {
+            <span>{{ pipe.initialInput | sentenceCase }}</span>
+          }
+          @default {
+            <span>Output not configured for this example.</span>
+          }
+        }
+      </p>
+    </div>
+  } @empty {
+    <p>No pipes available to display.</p>
+  }
+</div>
+</div>
