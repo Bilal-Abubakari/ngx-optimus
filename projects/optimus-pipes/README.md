@@ -1,63 +1,57 @@
-# OptimusPipes
+# NgxOptimus
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.0.
+`ngx-optimus` is an Angular library dedicated to providing a collection of useful custom pipes to transform data in your templates. This library aims to simplify common data formatting tasks and keep your component logic cleaner.
 
-## Code scaffolding
+## Purpose
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+The main goal of `ngx-optimus` is to offer a set of reusable and well-tested pipes that can be easily integrated into any Angular project, helping developers to format data directly in their HTML templates with ease.
 
-```bash
-ng generate component component-name
-```
+## Installation
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+To get started with `ngx-optimus`, install it from npm:
 
 ```bash
-ng generate --help
+npm install ngx-optimus
 ```
 
-## Building
+## Usage
+1. **Import `NgxOptimusPipesModule`**: You need to import the `NgxOptimusPipesModule` into the Angular module where you want to use the pipes (e.g., your `AppModule` or a shared module).
 
-To build the library, run:
 
-```bash
-ng build optimus-pipes
-```
+    // src/app/app.module.ts (or your feature module)
+    import { NgModule } from '@angular/core';
+    import { BrowserModule } from '@angular/platform-browser';
+    import { NgxOptimusPipesModule } from 'ngx-optimus'; // Ensure this path is correct based on your library's published name
 
-This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
+    import { AppComponent } from './app.component';
 
-### Publishing the Library
+    @NgModule({
+      declarations: [
+        AppComponent
+      ],
+      imports: [
+        BrowserModule,
+        NgxOptimusPipesModule // Add NgxOptimusPipesModule here
+      ],
+      providers: [],
+      bootstrap: [AppComponent]
+    })
+    export class AppModule { }
 
-Once the project is built, you can publish your library by following these steps:
+2. **Use the pipes in your templates**: Once imported, you can use the pipes in your component templates.
+   For example, to use the pipe: `sentenceCase`
 
-1. Navigate to the `dist` directory:
-   ```bash
-   cd dist/optimus-pipes
-   ```
 
-2. Run the `npm publish` command to publish your library to the npm registry:
-   ```bash
-   npm publish
-   ```
+    <!-- Assuming 'myString' is a property in your component -->
+    <!-- e.g., myString = "helloWorldExample"; or myString = "hello_world_example"; -->
+    <p>{{ myString | sentenceCase }}</p>
+    <!-- Output: Hello world example -->
 
-## Running unit tests
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Available Pipes
+Here's a list of the pipes currently available in `ngx-optimus`:
 
-```bash
-ng test
-```
+| Pipe           | Description                                                                                             | Usage Example                         |
+|----------------|---------------------------------------------------------------------------------------------------------|---------------------------------------|
+| `sentenceCase` | Converts a string into sentence case. Handles camelCase, PascalCase, snake_case, and kebab-case inputs. | {{ 'hello_world' \|  sentenceCase }}` |
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
