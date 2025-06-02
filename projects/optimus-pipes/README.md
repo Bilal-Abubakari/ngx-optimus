@@ -22,9 +22,8 @@ npm install ngx-optimus
 ## Usage
 You can use `optimus-pipes` pipes in both standalone components and components that are part of an NgModule.
 
-**1. For Standalone Components:**
-If you are using standalone components, you can import the specific pipes you need directly into your component's `imports` array.
-Assuming `SentenceCasePipe` is the pipe for the transformation and is exported from `optimus-pipes`: `sentenceCase`
+**1. For Standalone Components:** If you are using standalone components, you can import the specific pipes you need directly into your component's `imports` array. Assuming `SentenceCasePipe` is the pipe for the transformation and is exported from `optimus-pipes`: `sentenceCase`
+Alternatively, you can import `NgxOptimusPipesModule` which is a bundle of all pipes provided by optimus pipes.
 
 
     // src/app/your-standalone-component/your-standalone-component.component.ts
@@ -49,9 +48,31 @@ Assuming `SentenceCasePipe` is the pipe for the transformation and is exported f
     myString: string = "helloWorldExample";
     }
 
+    // src/app/your-standalone-component/your-standalone-component.component.ts
+    import { Component } from '@angular/core';
+    **import { NgxOptimusPipesModule } from 'optimus-pipes'; // Ensure this path
 
-**2. For Components within NgModules:**
-If your component is part of an Angular module (e.g., `AppModule` or a feature module), you can import any pipe in the module. (Assuming the module name follows the convention `[LibraryName]Module`).
+    @Component({
+    selector: 'app-your-standalone-component',
+    standalone: true,
+    imports: [
+    NgxOptimusPipesModule // Add the pipes module here
+    // Other imports like CommonModule if needed
+    ],
+    template: `
+        <!-- Assuming 'myString' is a property in your component -->
+        <!-- e.g., myString = "helloWorldExample"; or myString = "hello_world_example"; -->
+        <p>{{ myString | sentenceCase }}</p>
+        <!-- Output: Hello world example -->
+      `
+    })
+    export class YourStandaloneComponent {
+    myString: string = "helloWorldExample";
+    }**
+
+
+**2. For Components within NgModules:** If your component is part of an Angular module (e.g., `AppModule` or a feature module), you can import any pipe in the module. (Assuming the module name follows the convention `[LibraryName]Module`).
+You could also import the `NgxOptimusPipesModule` inside the `AppModule` or a feature module to get access to all pipes.
 
 
     // src/app/app.module.ts (or your feature module)
@@ -89,7 +110,8 @@ For example, to use the pipe: `sentenceCase`
 ## Available Pipes
 Here's a list of the pipes currently available in `optimus-pipes`:
 
-| Pipe           | Description                                                                                             | Usage Example                         |
-|----------------|---------------------------------------------------------------------------------------------------------|---------------------------------------|
-| `sentenceCase` | Converts a string into sentence case. Handles camelCase, PascalCase, snake_case, and kebab-case inputs. | {{ 'hello_world' \|  sentenceCase }}` |
+| Pipe           | Description                                                                                                                                                             | Usage Example                                             |
+|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------|
+| `sentenceCase` | Converts a string into sentence case. Handles camelCase, PascalCase, snake_case, and kebab-case inputs.                                                                 | {{ 'hello_world' \|  sentenceCase }}`                     |
+| `truncate`     | Shortens a string to a specified length and appends an ellipsis if truncated. Accepts a character limit (default: 30) and an optional ellipsis string (default: '...'). | `{{ 'This is a very long string' \| truncate:20:'...' }}` |
 

@@ -5,7 +5,7 @@
     <h2>Test a Pipe</h2>
     <div class="form-group">
       <label for="pipeInput">Input String:</label>
-      <input type="text" id="pipeInput" class="form-control" [(ngModel)]="userInput" [placeholder]="currentInitialInput">
+      <input type="text" id="pipeInput" class="form-control" [(ngModel)]="userInput" [placeholder]="currentInitialInput()">
     </div>
 
     <div class="form-group">
@@ -19,14 +19,17 @@
       </select>
     </div>
 
-    @if (selectedPipeName) {
+    @if (selectedPipeName()) {
       <div class="output-section">
         <h3>Output:</h3>
         <div class="output-box">
-          @switch (selectedPipeName) {
+          @switch (selectedPipeName()) {
             @case ('sentenceCase') {
-              <span>{{ userInput | sentenceCase }}</span>
+              <span>{{ userInput() | sentenceCase }}</span>
             }
+              @case ('truncate') {
+                  <span>{{ userInput() | truncate }}</span>
+              }
             @default {
               <span>Pipe not found or output not configured.</span>
             }
@@ -34,9 +37,9 @@
         </div>
         @if (selectedPipeExists()) {
           <div class="pipe-description">
-            <h4>About {{ currentSelectPipe.displayName }}:</h4>
-            <p>{{ currentSelectPipe.description }}</p>
-            <p><strong>Example Usage:</strong> <code>'someText' | {{ currentSelectPipe.name }}</code></p>
+            <h4>About {{ currentSelectPipe()?.displayName }}:</h4>
+            <p>{{ currentSelectPipe()?.description }}</p>
+            <p><strong>Example Usage:</strong> <code>'someText' | {{ currentSelectPipe()?.name }}</code></p>
   </div>
   }
 </div>

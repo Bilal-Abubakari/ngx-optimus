@@ -2,5 +2,6 @@
  * Public API Surface of optimus-pipes
  */
 
-export * from "./lib/pipes/sentence-case.pipe";
+export * from "./lib/pipes/sentence-case/sentence-case.pipe";
+export * from "./lib/pipes/truncate/truncate.pipe";
 export * from "./lib/ngx-optimus-pipes.module";
