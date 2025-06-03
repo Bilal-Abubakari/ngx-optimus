@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "demo-update": "ng build optimus-pipes && ng build optimus-pipe-demo --output-path docs --base-href /ngx-optimus --no-prerender && node scripts/post-build-docs.js",
+    "demo-update": "ng build optimus-pipes && ng build optimus-pipe-demo --output-path docs --base-href /ngx-optimus/ --no-prerender && node scripts/post-build-docs.js",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"

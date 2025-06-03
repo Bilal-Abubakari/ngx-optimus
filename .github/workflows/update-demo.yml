@@ -1,0 +1,59 @@
+name: Update Demo and Create PR
+
+on:
+  workflow_dispatch: # Allows manual triggering
+  # You can also trigger it on a schedule or push to a specific branch
+  # schedule:
+  #   - cron: '0 0 * * 0' # Runs every Sunday at midnight
+  # push:
+  #   branches:
+  #     - main # Or your default branch
+
+jobs:
+  update_and_pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Fetches all history so we can push to a new branch
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run demo-update script
+        run: npm run demo-update
+
+      - name: Commit changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          # Check if there are any changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "docs: Update demo pages via GitHub Actions"
+            echo "Changes committed."
+          fi
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "docs: Update demo pages"
+          title: "Update Demo Pages"
+          body: |
+            Automated updates to the demo pages.
+            Please review the changes.
+          branch: "actions/update-demo-pages"
+          base: ${{ github.ref_name }}
+          labels: "automated pr, documentation"
+          assignees: "Bilal-Abubakari"
+          reviewers: "Bilal-Abubakari"
