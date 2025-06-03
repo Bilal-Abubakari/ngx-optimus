@@ -57,6 +57,5 @@ jobs:
             Please review the changes.
           branch: "actions/update-demo-pages"
           base: ${{ github.ref_name }}
-          labels: "automated pr, documentation"
           assignees: "Bilal-Abubakari"
           reviewers: "Bilal-Abubakari"
