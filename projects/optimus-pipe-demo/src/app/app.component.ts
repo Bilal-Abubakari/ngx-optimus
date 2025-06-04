@@ -3,12 +3,13 @@ import { FormsModule } from "@angular/forms";
 import { SentenceCasePipe } from "../../../optimus-pipes/src/lib/pipes/sentence-case/sentence-case.pipe";
 import { TruncatePipe } from "../../../optimus-pipes/src/lib/pipes/truncate/truncate.pipe";
 import { availablePipes } from "./pipes";
+import { TimeAgoPipe } from "../../../optimus-pipes/src/lib/pipes/time-ago/time-ago.pipe";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
-  imports: [FormsModule, SentenceCasePipe, TruncatePipe],
+  imports: [FormsModule, SentenceCasePipe, TruncatePipe, TimeAgoPipe],
 })
 export class AppComponent {
   public userInput = signal("hello_world_example");
@@ -17,6 +18,7 @@ export class AppComponent {
 
   private sentenceCasePipeInstance = new SentenceCasePipe();
   private truncatePipeInstance = new TruncatePipe();
+  private timeAgoPipeInstance = new TimeAgoPipe();
   public currentSelectPipe = computed(() => {
     return this.availablePipes.find(
       ({ name }) => name === this.selectedPipeName()
@@ -99,6 +101,8 @@ export class AppComponent {
         const limit = props["limit"];
         const ellipsis = props["ellipsis"];
         return this.truncatePipeInstance.transform(input, limit, ellipsis);
+      case "timeAgo":
+        return this.timeAgoPipeInstance.transform(input);
       default:
         return `Output for '${pipeName}' not configured in component.`;
     }
@@ -107,7 +111,7 @@ export class AppComponent {
   public exampleUsageString = computed(() => {
     const pipe = this.currentSelectPipe();
     if (!pipe) return "";
-    let usage = `'someText' | ${pipe.name}`;
+    let usage = `${pipe.exampleUsageText ? pipe.exampleUsageText : "someText"} | ${pipe.name}`;
     if (pipe.properties?.length) {
       const exampleArgs = pipe.properties
         .map(p => {

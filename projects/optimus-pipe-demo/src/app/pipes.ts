@@ -9,6 +9,7 @@ export interface PipeInfo {
   displayName: string;
   description: string;
   initialInput: string;
+  exampleUsageText?: string;
   properties?: PipeProperty[];
 }
 
@@ -49,7 +50,8 @@ export const availablePipes: PipeInfo[] = [
   {
     name: "truncate",
     displayName: "Truncate",
-    description: "",
+    description:
+      "Truncates a string to a specified maximum length and appends an ellipsis if truncation occurs.",
     initialInput: "This is a very long string",
     properties: [
       {
@@ -68,5 +70,13 @@ export const availablePipes: PipeInfo[] = [
           "The string to append if truncation occurs (default is '...').",
       },
     ],
+  },
+  {
+    name: "timeAgo",
+    displayName: "Time Ago (Relative time)",
+    description:
+      "Converts a date or timestamp into a human-readable relative time format (e.g., 'a few seconds ago', '5 minutes ago', '2 weeks ago', '1 year ago'). Handles various input formats including Date objects, timestamps, and date strings.",
+    initialInput: new Date(Date.now() - 3600000).toISOString(),
+    exampleUsageText: "someDate",
   },
 ];
