@@ -90,6 +90,9 @@
             <div [style.margin-top]="'10px'">Length has a default of 20</div>
             <div [style.margin-top]="'10px'">Ellipsis has a default of ...</div>
           }
+          @case ('timeAgo') {
+            <span>{{ pipe.initialInput | timeAgo }}</span>
+          }
           @default {
             <span>Output not configured for this example.</span>
           }
