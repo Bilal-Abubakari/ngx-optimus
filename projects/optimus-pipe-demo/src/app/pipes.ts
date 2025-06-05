@@ -79,4 +79,21 @@ export const availablePipes: PipeInfo[] = [
     initialInput: new Date(Date.now() - 3600000).toISOString(),
     exampleUsageText: "someDate",
   },
+  {
+    name: "codeCase",
+    displayName: "Code Case",
+    description:
+      "Converts a string into different code case formats: camelCase, PascalCase, or snake_case.",
+    initialInput: "hello world example",
+    properties: [
+      {
+        name: "caseType",
+        displayName: "Case Type",
+        type: "string",
+        defaultValue: "camel",
+        description:
+          "The case format to convert to. Options are 'camel', 'pascal', or 'snake'. Default is 'camel'.",
+      },
+    ],
+  },
 ];
