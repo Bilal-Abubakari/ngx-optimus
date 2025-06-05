@@ -93,6 +93,9 @@
           @case ('timeAgo') {
             <span>{{ pipe.initialInput | timeAgo }}</span>
           }
+          @case ('codeCase') {
+            <span>{{ pipe.initialInput | codeCase }}</span>
+          }
           @default {
             <span>Output not configured for this example.</span>
           }

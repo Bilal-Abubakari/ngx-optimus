@@ -115,4 +115,6 @@ Here's a list of the pipes currently available in `optimus-pipes`:
 | `sentenceCase` | Converts a string into sentence case. Handles camelCase, PascalCase, snake_case, and kebab-case inputs.                                                                                                                                | {{ 'hello_world' \|  sentenceCase }}`                     |
 | `truncate`     | Shortens a string to a specified length and appends an ellipsis if truncated. Accepts a character limit (default: 30) and an optional ellipsis string (default: '...').                                                                | `{{ 'This is a very long string' \| truncate:20:'...' }}` |
 | `timeAgo`      | Converts a date or timestamp into a human-readable relative time format (e.g., 'a few seconds ago', '5 minutes ago', '2 weeks ago', '1 year ago'). Handles various input formats including Date objects, timestamps, and date strings. | `{{ '2023-10-01T12:00:00Z' \| timeAgo }}`                 |
+| `codeCase`     | Converts a string into different code case formats: camelCase, PascalCase, or snake_case.                                                                                                                                              | `{{ 'hello world' \| codeCase }}`                         |
+
 

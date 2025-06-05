@@ -4,12 +4,19 @@ import { SentenceCasePipe } from "../../../optimus-pipes/src/lib/pipes/sentence-
 import { TruncatePipe } from "../../../optimus-pipes/src/lib/pipes/truncate/truncate.pipe";
 import { availablePipes } from "./pipes";
 import { TimeAgoPipe } from "../../../optimus-pipes/src/lib/pipes/time-ago/time-ago.pipe";
+import { CodeCasePipe } from "../../../optimus-pipes/src/lib/pipes/code-case/code-case.pipe";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
-  imports: [FormsModule, SentenceCasePipe, TruncatePipe, TimeAgoPipe],
+  imports: [
+    FormsModule,
+    SentenceCasePipe,
+    TruncatePipe,
+    TimeAgoPipe,
+    CodeCasePipe,
+  ],
 })
 export class AppComponent {
   public userInput = signal("hello_world_example");
@@ -19,6 +26,7 @@ export class AppComponent {
   private sentenceCasePipeInstance = new SentenceCasePipe();
   private truncatePipeInstance = new TruncatePipe();
   private timeAgoPipeInstance = new TimeAgoPipe();
+  private codeCasePipeInstance = new CodeCasePipe();
   public currentSelectPipe = computed(() => {
     return this.availablePipes.find(
       ({ name }) => name === this.selectedPipeName()
@@ -103,6 +111,9 @@ export class AppComponent {
         return this.truncatePipeInstance.transform(input, limit, ellipsis);
       case "timeAgo":
         return this.timeAgoPipeInstance.transform(input);
+      case "codeCase":
+        const caseType = props["caseType"] || "camel";
+        return this.codeCasePipeInstance.transform(input, caseType);
       default:
         return `Output for '${pipeName}' not configured in component.`;
     }
