@@ -18,7 +18,7 @@ export const availablePipes: PipeInfo[] = [
     name: "sentenceCase",
     displayName: "Sentence Case",
     description:
-      "Converts a string into sentence case. Handles camelCase, PascalCase, snake_case, and kebab-case inputs.",
+      "Converts a string into sentence case. Handles camelCase, PascalCase, snake_case, and kebab-case, inputs.",
     initialInput: "hello_World-Example123",
     properties: [
       {
@@ -83,7 +83,7 @@ export const availablePipes: PipeInfo[] = [
     name: "codeCase",
     displayName: "Code Case",
     description:
-      "Converts a string into different code case formats: camelCase, PascalCase, or snake_case.",
+      "Converts a string into different code case formats: camelCase, PascalCase, snake_case and slug.",
     initialInput: "hello world example",
     properties: [
       {
@@ -92,7 +92,7 @@ export const availablePipes: PipeInfo[] = [
         type: "string",
         defaultValue: "camel",
         description:
-          "The case format to convert to. Options are 'camel', 'pascal', or 'snake'. Default is 'camel'.",
+          "The case format to convert to. Options are 'camel', 'pascal', 'snake', or 'slug'. Default is 'camel'.",
       },
     ],
   },

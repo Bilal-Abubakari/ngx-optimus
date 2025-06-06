@@ -61,4 +61,22 @@ describe("CodeCasePipe", () => {
     expect(pipe.transform("XML HTTP request", "pascal")).toBe("XmlHttpRequest");
     expect(pipe.transform("API endpoint", "snake")).toBe("api_endpoint");
   });
+
+  it("should handle mixed cases for slug-case", () => {
+    expect(pipe.transform("HelloWorld", "slug")).toBe("hello-world");
+    expect(pipe.transform("helloWorld", "slug")).toBe("hello-world");
+    expect(pipe.transform("camelCaseInput", "slug")).toBe("camel-case-input");
+  });
+
+  it("should handle special formatting for slug-case", () => {
+    expect(pipe.transform("hello-world", "slug")).toBe("hello-world");
+    expect(pipe.transform("hello_world", "slug")).toBe("hello-world");
+    expect(pipe.transform("  hello  world  ", "slug")).toBe("hello-world");
+  });
+
+  it("should handle acronyms for slug-case", () => {
+    expect(pipe.transform("API request", "slug")).toBe("api-request");
+    expect(pipe.transform("URL Builder", "slug")).toBe("url-builder");
+    expect(pipe.transform("XML HTTP request", "slug")).toBe("xml-http-request");
+  });
 });
