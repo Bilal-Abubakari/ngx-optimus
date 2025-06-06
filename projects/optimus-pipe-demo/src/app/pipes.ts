@@ -1,7 +1,7 @@
 interface PipeProperty
   extends Pick<PipeInfo, "name" | "displayName" | "description"> {
   type: "number" | "string" | "boolean";
-  defaultValue: any;
+  defaultValue?: any;
 }
 
 export interface PipeInfo {
@@ -93,6 +93,22 @@ export const availablePipes: PipeInfo[] = [
         defaultValue: "camel",
         description:
           "The case format to convert to. Options are 'camel', 'pascal', 'snake', or 'slug'. Default is 'camel'.",
+      },
+    ],
+  },
+  {
+    name: "initials",
+    displayName: "Initials",
+    description:
+      'Extracts the initials from a name string (e.g., "John Doe" becomes "JD").',
+    initialInput: "Bilal Abubakari",
+    properties: [
+      {
+        name: "length",
+        displayName: "Initials Length",
+        type: "number",
+        description:
+          "The number of initials to extract. If not provided it will use the number of words in the input string.",
       },
     ],
   },

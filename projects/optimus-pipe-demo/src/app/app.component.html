@@ -96,6 +96,9 @@
           @case ('codeCase') {
             <span>{{ pipe.initialInput | codeCase }}</span>
           }
+          @case ('initials') {
+            <span>{{ pipe.initialInput | initials }}</span>
+          }
           @default {
             <span>Output not configured for this example.</span>
           }

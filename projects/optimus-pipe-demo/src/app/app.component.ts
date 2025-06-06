@@ -5,6 +5,7 @@ import { TruncatePipe } from "../../../optimus-pipes/src/lib/pipes/truncate/trun
 import { availablePipes } from "./pipes";
 import { TimeAgoPipe } from "../../../optimus-pipes/src/lib/pipes/time-ago/time-ago.pipe";
 import { CodeCasePipe } from "../../../optimus-pipes/src/lib/pipes/code-case/code-case.pipe";
+import { InitialsPipe } from "../../../optimus-pipes/src/lib/pipes/initials/initials.pipe";
 
 @Component({
   selector: "app-root",
@@ -16,17 +17,13 @@ import { CodeCasePipe } from "../../../optimus-pipes/src/lib/pipes/code-case/cod
     TruncatePipe,
     TimeAgoPipe,
     CodeCasePipe,
+    InitialsPipe,
   ],
 })
 export class AppComponent {
   public userInput = signal("hello_world_example");
   public selectedPipeName = signal(availablePipes[0].name);
   public pipePropertyValues = signal<{ [key: string]: any }>({});
-
-  private sentenceCasePipeInstance = new SentenceCasePipe();
-  private truncatePipeInstance = new TruncatePipe();
-  private timeAgoPipeInstance = new TimeAgoPipe();
-  private codeCasePipeInstance = new CodeCasePipe();
   public currentSelectPipe = computed(() => {
     return this.availablePipes.find(
       ({ name }) => name === this.selectedPipeName()
@@ -99,7 +96,8 @@ export class AppComponent {
         const capitalizeEveryWord = props["capitalizeEveryWord"];
         const allLowercase = props["allLowercase"];
         const allUppercase = props["allUppercase"];
-        return this.sentenceCasePipeInstance.transform(
+        const sentenceCasePipeInstance = new SentenceCasePipe();
+        return sentenceCasePipeInstance.transform(
           input,
           capitalizeEveryWord,
           allLowercase,
@@ -108,12 +106,19 @@ export class AppComponent {
       case "truncate":
         const limit = props["limit"];
         const ellipsis = props["ellipsis"];
-        return this.truncatePipeInstance.transform(input, limit, ellipsis);
+        const truncatePipeInstance = new TruncatePipe();
+        return truncatePipeInstance.transform(input, limit, ellipsis);
       case "timeAgo":
-        return this.timeAgoPipeInstance.transform(input);
+        const timeAgoPipeInstance = new TimeAgoPipe();
+        return timeAgoPipeInstance.transform(input);
       case "codeCase":
         const caseType = props["caseType"] || "camel";
-        return this.codeCasePipeInstance.transform(input, caseType);
+        const codeCasePipeInstance = new CodeCasePipe();
+        return codeCasePipeInstance.transform(input, caseType);
+      case "initials":
+        const initialsPipeInstance = new InitialsPipe();
+        const length = props["length"];
+        return initialsPipeInstance.transform(input, length);
       default:
         return `Output for '${pipeName}' not configured in component.`;
     }
