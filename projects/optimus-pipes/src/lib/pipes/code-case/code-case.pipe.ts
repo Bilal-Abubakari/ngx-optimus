@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from "@angular/core";
 export class CodeCasePipe implements PipeTransform {
   transform(
     value: string | null | undefined,
-    caseType: "camel" | "pascal" | "snake" = "camel"
+    caseType: "camel" | "pascal" | "snake" | "slug" = "camel"
   ): string {
     if (!value) return "";
 
@@ -20,6 +20,10 @@ export class CodeCasePipe implements PipeTransform {
 
     if (caseType === "snake") {
       return normalized.replace(/\s+/g, "_");
+    }
+
+    if (caseType === "slug") {
+      return normalized.replace(/\s+/g, "-");
     }
 
     const words = normalized.split(" ");
