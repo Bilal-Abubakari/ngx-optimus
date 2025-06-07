@@ -6,6 +6,7 @@ import { availablePipes } from "./pipes";
 import { TimeAgoPipe } from "../../../optimus-pipes/src/lib/pipes/time-ago/time-ago.pipe";
 import { CodeCasePipe } from "../../../optimus-pipes/src/lib/pipes/code-case/code-case.pipe";
 import { InitialsPipe } from "../../../optimus-pipes/src/lib/pipes/initials/initials.pipe";
+import { StripHtmlPipe } from "../../../optimus-pipes/src/lib/pipes/strip-html/strip-html.pipe";
 
 @Component({
   selector: "app-root",
@@ -18,6 +19,7 @@ import { InitialsPipe } from "../../../optimus-pipes/src/lib/pipes/initials/init
     TimeAgoPipe,
     CodeCasePipe,
     InitialsPipe,
+    StripHtmlPipe,
   ],
 })
 export class AppComponent {
@@ -119,6 +121,9 @@ export class AppComponent {
         const initialsPipeInstance = new InitialsPipe();
         const length = props["length"];
         return initialsPipeInstance.transform(input, length);
+      case "stripHtml":
+        const stripHtmlPipeInstance = new StripHtmlPipe();
+        return stripHtmlPipeInstance.transform(input);
       default:
         return `Output for '${pipeName}' not configured in component.`;
     }

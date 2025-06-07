@@ -112,4 +112,12 @@ export const availablePipes: PipeInfo[] = [
       },
     ],
   },
+  {
+    name: "stripHtml",
+    displayName: "Strip HTML",
+    description:
+      "Removes HTML tags from a string, ensuring it's rendered as plain text.",
+    initialInput: "<p>Hello <b>World</b></p>",
+    exampleUsageText: "{{ '<p>Hello <b>World</b></p>' | stripHtml }}",
+  },
 ];
