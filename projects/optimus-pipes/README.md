@@ -117,5 +117,5 @@ Here's a list of the pipes currently available in `optimus-pipes`:
 | `timeAgo`      | Converts a date or timestamp into a human-readable relative time format (e.g., 'a few seconds ago', '5 minutes ago', '2 weeks ago', '1 year ago'). Handles various input formats including Date objects, timestamps, and date strings. | `{{ '2023-10-01T12:00:00Z' \| timeAgo }}`                 |
 | `codeCase`     | Converts a string into different code case formats: camelCase, PascalCase, snake_case, or slug.                                                                                                                                        | `{{ 'hello world' \| codeCase }}`                         |
 | `initials`     | Generates initials from a given string, useful for creating avatar initials. Accepts a string and returns the first letters of each word.                                                                                              | `{{ 'John Doe' \| initials }}`                            |
-
+| `stripHtml`    | Removes HTML tags from a string, ensuring it's rendered as plain text.                                                                                                                                                                 | `{{ '<p>Hello <b>World</b></p>' \| stripHtml }}`          |
 

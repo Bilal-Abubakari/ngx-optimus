@@ -99,6 +99,9 @@
           @case ('initials') {
             <span>{{ pipe.initialInput | initials }}</span>
           }
+          @case ('stripHtml') {
+            <span>{{ pipe.initialInput | stripHtml }}</span>
+          }
           @default {
             <span>Output not configured for this example.</span>
           }
