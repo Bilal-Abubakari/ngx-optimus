@@ -5,6 +5,7 @@ import { TimeAgoPipe } from "./pipes/time-ago/time-ago.pipe";
 import { CodeCasePipe } from "./pipes/code-case/code-case.pipe";
 import { InitialsPipe } from "./pipes/initials/initials.pipe";
 import { StripHtmlPipe } from "./pipes/strip-html/strip-html.pipe";
+import { DefaultPipe } from "./pipes/default/default.pipe";
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { StripHtmlPipe } from "./pipes/strip-html/strip-html.pipe";
     CodeCasePipe,
     InitialsPipe,
     StripHtmlPipe,
+    DefaultPipe,
   ],
   exports: [
     SentenceCasePipe,
@@ -22,6 +24,7 @@ import { StripHtmlPipe } from "./pipes/strip-html/strip-html.pipe";
     CodeCasePipe,
     InitialsPipe,
     StripHtmlPipe,
+    DefaultPipe,
   ],
 })
 export class NgxOptimusPipesModule {}

@@ -5,12 +5,20 @@
     <h2>Test a Pipe</h2>
     <div class="form-group">
       <label for="pipeInput">Input String:</label>
-      <input type="text" id="pipeInput" class="form-control" [(ngModel)]="userInput" [placeholder]="currentInitialInput()">
+      <input
+        type="text"
+        id="pipeInput"
+        class="form-control"
+        [(ngModel)]="userInput"
+        [placeholder]="currentInitialInput()" />
     </div>
 
     <div class="form-group">
       <label for="pipeSelector">Select Pipe:</label>
-      <select id="pipeSelector" class="form-control" [(ngModel)]="selectedPipeName">
+      <select
+        id="pipeSelector"
+        class="form-control"
+        [(ngModel)]="selectedPipeName">
         @for (pipe of availablePipes; track pipe.name) {
           <option [value]="pipe.name">
             {{ pipe.displayName }}
@@ -24,18 +32,33 @@
         @for (prop of currentSelectPipe()?.properties; track prop.name) {
           <div class="form-group">
             <label [for]="'prop-' + prop.name">{{ prop.displayName }}:</label>
-            @if (prop.type === 'number') {
-              <input type="number" [id]="'prop-' + prop.name" class="form-control"
-                     [ngModel]="pipePropertyValues()[prop.name]"
-                     (ngModelChange)="updatePipePropertyValue(prop.name, $event, 'number')">
-            } @else if (prop.type === 'string') {
-              <input type="text" [id]="'prop-' + prop.name" class="form-control"
-                     [ngModel]="pipePropertyValues()[prop.name]"
-                     (ngModelChange)="updatePipePropertyValue(prop.name, $event, 'string')">
-            } @else if (prop.type === 'boolean') {
-              <input type="checkbox" [id]="'prop-' + prop.name" class="form-check-input"
-                     [ngModel]="pipePropertyValues()[prop.name]"
-                     (ngModelChange)="updatePipePropertyValue(prop.name, $event, 'boolean')">
+            @if (prop.type === "number") {
+              <input
+                type="number"
+                [id]="'prop-' + prop.name"
+                class="form-control"
+                [ngModel]="pipePropertyValues()[prop.name]"
+                (ngModelChange)="
+                  updatePipePropertyValue(prop.name, $event, 'number')
+                " />
+            } @else if (prop.type === "string") {
+              <input
+                type="text"
+                [id]="'prop-' + prop.name"
+                class="form-control"
+                [ngModel]="pipePropertyValues()[prop.name]"
+                (ngModelChange)="
+                  updatePipePropertyValue(prop.name, $event, 'string')
+                " />
+            } @else if (prop.type === "boolean") {
+              <input
+                type="checkbox"
+                [id]="'prop-' + prop.name"
+                class="form-check-input"
+                [ngModel]="pipePropertyValues()[prop.name]"
+                (ngModelChange)="
+                  updatePipePropertyValue(prop.name, $event, 'boolean')
+                " />
             }
             @if (prop.description) {
               <small class="form-text text-muted">{{ prop.description }}</small>
@@ -55,61 +78,78 @@
           <div class="pipe-description">
             <h4>About {{ currentSelectPipe()?.displayName }}:</h4>
             <p>{{ currentSelectPipe()?.description }}</p>
-            <p><strong>Example Usage:</strong> <code>{{ exampleUsageString() }}</code></p>
+            <p>
+              <strong>Example Usage:</strong>
+              <code>{{ exampleUsageString() }}</code>
+            </p>
           </div>
         }
       </div>
     }
-</div>
+  </div>
 
-<hr>
+  <hr />
 
-<h2>Available Pipes Overview</h2>
-<div class="pipes-overview">
-  @for (pipe of availablePipes; track pipe.name) {
-    <div class="pipe-card">
-      <h3>{{ pipe.displayName }}</h3>
-      <p>{{ pipe.description }}</p>
-      <p>
-        <strong>Try it out:</strong>
-        "{{ pipe.initialInput }}" | {{ pipe.name }}
-        @if (pipe.properties?.length) {
-          @for (prop of pipe.properties; track prop.name) {
-            <span>:{{ prop.type === 'string' ? "'" + prop.defaultValue + "'" : prop.defaultValue }}</span>
+  <h2>Available Pipes Overview</h2>
+  <div class="pipes-overview">
+    @for (pipe of availablePipes; track pipe.name) {
+      <div class="pipe-card">
+        <h3>{{ pipe.displayName }}</h3>
+        <p>{{ pipe.description }}</p>
+        <p>
+          <strong>Try it out:</strong>
+          "{{ pipe.initialInput }}" | {{ pipe.name }}
+          @if (pipe.properties?.length) {
+            @for (prop of pipe.properties; track prop.name) {
+              <span
+                >:{{
+                  prop.type === "string"
+                    ? "'" + prop.defaultValue + "'"
+                    : prop.defaultValue
+                }}</span
+              >
+            }
           }
-        }
-      </p>
-      <p class="example-output">
-        <strong>Example Output:</strong>
-        @switch (pipe.name) {
-          @case ('sentenceCase') {
-            <span>{{ pipe.initialInput | sentenceCase }}</span>
+        </p>
+        <p class="example-output">
+          <strong>Example Output:</strong>
+          @switch (pipe.name) {
+            @case ("sentenceCase") {
+              <span>{{ pipe.initialInput | sentenceCase }}</span>
+            }
+            @case ("truncate") {
+              <span>{{ pipe.initialInput | truncate }}</span>
+              <div [style.margin-top]="'10px'">Length has a default of 20</div>
+              <div [style.margin-top]="'10px'">
+                Ellipsis has a default of ...
+              </div>
+            }
+            @case ("timeAgo") {
+              <span>{{ pipe.initialInput | timeAgo }}</span>
+            }
+            @case ("codeCase") {
+              <span>{{ pipe.initialInput | codeCase }}</span>
+            }
+            @case ("initials") {
+              <span>{{ pipe.initialInput | initials }}</span>
+            }
+            @case ("stripHtml") {
+              <span>{{ pipe.initialInput | stripHtml }}</span>
+            }
+            @case ("default") {
+              <span>{{
+                pipe.initialInput
+                  | default: pipe.properties?.[0]?.defaultValue ?? ""
+              }}</span>
+            }
+            @default {
+              <span>Output not configured for this example.</span>
+            }
           }
-          @case ('truncate') {
-            <span>{{ pipe.initialInput | truncate }}</span>
-            <div [style.margin-top]="'10px'">Length has a default of 20</div>
-            <div [style.margin-top]="'10px'">Ellipsis has a default of ...</div>
-          }
-          @case ('timeAgo') {
-            <span>{{ pipe.initialInput | timeAgo }}</span>
-          }
-          @case ('codeCase') {
-            <span>{{ pipe.initialInput | codeCase }}</span>
-          }
-          @case ('initials') {
-            <span>{{ pipe.initialInput | initials }}</span>
-          }
-          @case ('stripHtml') {
-            <span>{{ pipe.initialInput | stripHtml }}</span>
-          }
-          @default {
-            <span>Output not configured for this example.</span>
-          }
-        }
-      </p>
-    </div>
-  } @empty {
-    <p>No pipes available to display.</p>
-  }
-</div>
+        </p>
+      </div>
+    } @empty {
+      <p>No pipes available to display.</p>
+    }
+  </div>
 </div>

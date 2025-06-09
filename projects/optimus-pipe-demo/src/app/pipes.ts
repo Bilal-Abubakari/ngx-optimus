@@ -120,4 +120,48 @@ export const availablePipes: PipeInfo[] = [
     initialInput: "<p>Hello <b>World</b></p>",
     exampleUsageText: "{{ '<p>Hello <b>World</b></p>' | stripHtml }}",
   },
+  {
+    name: "default",
+    displayName: "Default Value",
+    description:
+      "Returns a default value if the input is empty, null, undefined, or NaN. Can also check for empty strings, arrays, and objects.",
+    initialInput: "",
+    properties: [
+      {
+        name: "defaultValue",
+        displayName: "Default Value",
+        type: "string",
+        defaultValue: "/assets/default-avatar.png",
+        description: "The value to return if the input is considered empty.",
+      },
+      {
+        name: "checkEmptyStrings",
+        displayName: "Check Empty Strings",
+        type: "boolean",
+        defaultValue: true,
+        description: "If true, considers empty strings as empty values.",
+      },
+      {
+        name: "checkEmptyArrays",
+        displayName: "Check Empty Arrays",
+        type: "boolean",
+        defaultValue: false,
+        description: "If true, considers empty arrays as empty values.",
+      },
+      {
+        name: "checkEmptyObjects",
+        displayName: "Check Empty Objects",
+        type: "boolean",
+        defaultValue: false,
+        description: "If true, considers empty objects as empty values.",
+      },
+      {
+        name: "checkZero",
+        displayName: "Check Zero",
+        type: "boolean",
+        defaultValue: false,
+        description: "If true, considers zero as an empty value.",
+      },
+    ],
+  },
 ];
