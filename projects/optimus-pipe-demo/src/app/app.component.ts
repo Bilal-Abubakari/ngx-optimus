@@ -7,6 +7,7 @@ import { TimeAgoPipe } from "../../../optimus-pipes/src/lib/pipes/time-ago/time-
 import { CodeCasePipe } from "../../../optimus-pipes/src/lib/pipes/code-case/code-case.pipe";
 import { InitialsPipe } from "../../../optimus-pipes/src/lib/pipes/initials/initials.pipe";
 import { StripHtmlPipe } from "../../../optimus-pipes/src/lib/pipes/strip-html/strip-html.pipe";
+import { DefaultPipe } from "../../../optimus-pipes/src/lib/pipes/default/default.pipe";
 
 @Component({
   selector: "app-root",
@@ -20,6 +21,7 @@ import { StripHtmlPipe } from "../../../optimus-pipes/src/lib/pipes/strip-html/s
     CodeCasePipe,
     InitialsPipe,
     StripHtmlPipe,
+    DefaultPipe,
   ],
 })
 export class AppComponent {
@@ -59,7 +61,7 @@ export class AppComponent {
       this.pipePropertyValues.set(newValues);
 
       if (pipe) {
-        this.userInput.set(pipe.initialInput);
+        this.userInput.set(pipe?.initialInput ?? "");
       }
     });
   }
@@ -124,6 +126,19 @@ export class AppComponent {
       case "stripHtml":
         const stripHtmlPipeInstance = new StripHtmlPipe();
         return stripHtmlPipeInstance.transform(input);
+      case "default":
+        const defaultValue = props["defaultValue"];
+        const checkEmptyStrings = props["checkEmptyStrings"];
+        const checkEmptyArrays = props["checkEmptyArrays"];
+        const checkEmptyObjects = props["checkEmptyObjects"];
+        const checkZero = props["checkZero"];
+        const defaultPipeInstance = new DefaultPipe();
+        return defaultPipeInstance.transform(input, defaultValue, {
+          checkEmptyStrings,
+          checkEmptyArrays,
+          checkEmptyObjects,
+          checkZero,
+        });
       default:
         return `Output for '${pipeName}' not configured in component.`;
     }
