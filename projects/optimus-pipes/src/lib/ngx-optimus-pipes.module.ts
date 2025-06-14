@@ -6,6 +6,7 @@ import { CodeCasePipe } from "./pipes/code-case/code-case.pipe";
 import { InitialsPipe } from "./pipes/initials/initials.pipe";
 import { StripHtmlPipe } from "./pipes/strip-html/strip-html.pipe";
 import { DefaultPipe } from "./pipes/default/default.pipe";
+import { FilterByPipe } from "./pipes/filter-by/filter-by.pipe";
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { DefaultPipe } from "./pipes/default/default.pipe";
     InitialsPipe,
     StripHtmlPipe,
     DefaultPipe,
+    FilterByPipe,
   ],
   exports: [
     SentenceCasePipe,
@@ -25,6 +27,7 @@ import { DefaultPipe } from "./pipes/default/default.pipe";
     InitialsPipe,
     StripHtmlPipe,
     DefaultPipe,
+    FilterByPipe,
   ],
 })
 export class NgxOptimusPipesModule {}

@@ -13,6 +13,11 @@ export interface PipeInfo {
   properties?: PipeProperty[];
 }
 
+export interface MockArrayInterface {
+  name: string;
+  age: number;
+}
+
 export const availablePipes: PipeInfo[] = [
   {
     name: "sentenceCase",
@@ -161,6 +166,34 @@ export const availablePipes: PipeInfo[] = [
         type: "boolean",
         defaultValue: false,
         description: "If true, considers zero as an empty value.",
+      },
+    ],
+  },
+  {
+    name: "filterBy",
+    displayName: "Filter By",
+    description:
+      "Filters an array of objects based on a property value and a search term. Useful for client-side filtering of lists.",
+    initialInput: JSON.stringify([
+      { name: "John", age: 30 },
+      { name: "Jane", age: 25 },
+      { name: "Jack", age: 40 },
+    ]),
+    exampleUsageText: "users",
+    properties: [
+      {
+        name: "property",
+        displayName: "Property",
+        type: "string",
+        defaultValue: "name",
+        description: "The object property to filter by.",
+      },
+      {
+        name: "searchTerm",
+        displayName: "Search Term",
+        type: "string",
+        defaultValue: "John",
+        description: "The term to search for in the property value.",
       },
     ],
   },

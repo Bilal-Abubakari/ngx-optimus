@@ -2,27 +2,21 @@ import { Component, computed, effect, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { SentenceCasePipe } from "../../../optimus-pipes/src/lib/pipes/sentence-case/sentence-case.pipe";
 import { TruncatePipe } from "../../../optimus-pipes/src/lib/pipes/truncate/truncate.pipe";
-import { availablePipes } from "./pipes";
+import { availablePipes, MockArrayInterface } from "./pipes";
 import { TimeAgoPipe } from "../../../optimus-pipes/src/lib/pipes/time-ago/time-ago.pipe";
 import { CodeCasePipe } from "../../../optimus-pipes/src/lib/pipes/code-case/code-case.pipe";
 import { InitialsPipe } from "../../../optimus-pipes/src/lib/pipes/initials/initials.pipe";
 import { StripHtmlPipe } from "../../../optimus-pipes/src/lib/pipes/strip-html/strip-html.pipe";
 import { DefaultPipe } from "../../../optimus-pipes/src/lib/pipes/default/default.pipe";
+import { FilterByPipe } from "../../../optimus-pipes/src/lib/pipes/filter-by/filter-by.pipe";
+import { NgxOptimusPipesModule } from "../../../optimus-pipes/src/lib/ngx-optimus-pipes.module";
+import { JsonPipe } from "@angular/common";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
-  imports: [
-    FormsModule,
-    SentenceCasePipe,
-    TruncatePipe,
-    TimeAgoPipe,
-    CodeCasePipe,
-    InitialsPipe,
-    StripHtmlPipe,
-    DefaultPipe,
-  ],
+  imports: [FormsModule, NgxOptimusPipesModule, JsonPipe],
 })
 export class AppComponent {
   public userInput = signal("hello_world_example");
@@ -139,6 +133,18 @@ export class AppComponent {
           checkEmptyObjects,
           checkZero,
         });
+      case "filterBy":
+        const filterArray = this.parseInputArray<MockArrayInterface>(input);
+        const filterByPipeInstance = new FilterByPipe();
+        const jsonPipeInstance = new JsonPipe();
+        const filterByProperty = props["property"];
+        const filterBySearchTerm = props["searchTerm"];
+        const filteredValue = filterByPipeInstance.transform(
+          filterArray,
+          filterByProperty,
+          filterBySearchTerm
+        );
+        return jsonPipeInstance.transform(filteredValue);
       default:
         return `Output for '${pipeName}' not configured in component.`;
     }
@@ -165,4 +171,31 @@ export class AppComponent {
     }
     return usage;
   });
+
+  public parseInputArray<T>(input: any): T[] {
+    if (typeof input === "string") {
+      try {
+        const parsed = JSON.parse(input);
+        if (Array.isArray(parsed)) {
+          return parsed;
+        }
+      } catch {
+        console.error("Failed to parse input as JSON array:", input);
+      }
+    }
+    return input;
+  }
+
+  public filterByInput() {
+    interface FilterByInput {
+      name: string;
+      age: number;
+    }
+    const filterBy = availablePipes.find(({ name }) => name === "filterBy")!;
+    return {
+      value: this.parseInputArray<FilterByInput>(filterBy.initialInput),
+      firstArg: filterBy.properties?.[0].defaultValue as keyof FilterByInput,
+      secondArg: filterBy.properties?.[1].defaultValue as string,
+    };
+  }
 }

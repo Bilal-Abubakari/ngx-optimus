@@ -142,6 +142,9 @@
                   | default: pipe.properties?.[0]?.defaultValue ?? ""
               }}</span>
             }
+            @case ("filterBy") {
+              <span>{{ filterByInput().value | filterBy: filterByInput().firstArg: filterByInput().secondArg | json }}</span>
+            }
             @default {
               <span>Output not configured for this example.</span>
             }
